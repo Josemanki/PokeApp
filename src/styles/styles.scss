@@ -20,6 +20,10 @@
     flex-wrap: wrap;
 }
 
+.pokemon__name {
+    text-transform: capitalize;
+}
+
 .pokemon__sprite {
     max-width: 150px;
     max-height: 150px;
