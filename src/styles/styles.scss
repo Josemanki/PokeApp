@@ -1,2 +1,56 @@
 @import './base/settings';
 @import './base/base';
+
+.container {
+    max-width: 140rem;
+    margin: 0 auto;
+}
+
+.header {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+}
+
+.pokecards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pokemon__sprite {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.filters-tab {
+    display: flex;
+    justify-content: center;
+}
+
+.pokemon__card__elements {
+    display: flex;
+}
+
+.pokemon__card__wrapper {
+    margin: 20px 20px;
+    min-width: 230px;
+    border: 1px solid black;
+}
+
+.pokemon__card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+    border: 1px solid red;
+}
