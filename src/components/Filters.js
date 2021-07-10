@@ -1,18 +1,17 @@
 import React from 'react'
 
-export default function Filters() {
+export default function Filters(props) {
     return (
         <div className="filters-tab">
-            <select name="region-select" id="region-select">
-                <option value="kanto">Kanto</option>
-                <option value="johto">Johto</option>
-                <option value="hoenn">Hoenn</option>
+            <select value={props.region} onChange={props.handleOffsetChange} name="region-select" id="region-select" className="capitalize region-select">
+                {props.regions.map((item) => {
+                    return <option key={item.name} value={item.name}>{item.name}</option>
+                })}
             </select>
-            <select name="type-sort" id="type-sort">
-                <option value="ghost">Ghost</option>
-                <option value="fire">Fire</option>
-                <option value="water">Water</option>
-                <option value="gras">Grass</option>
+            <select value={props.selectedType} onChange={props.handleOffsetChange} name="type-select" id="type-select" className="capitalize type-select">
+                {props.types.map((item) => {
+                    return <option key={item} value={item}>{item}</option>
+                })}
             </select>
             <select name="sort-by" id="sort-by">
                 <option value="id">ID</option>
