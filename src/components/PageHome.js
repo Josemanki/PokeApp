@@ -37,7 +37,7 @@ export default class PageHome extends Component {
             types: [
                 "all types", "grass", "bug", "dark", "dragon", "electric", "fairy", "fighting", "fire", "flying", "ghost", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"
             ],
-            selectedType: "all types",
+            selectedType: "water",
             filters: {
                 region: 'kanto',
                 type: 'all types',
@@ -45,11 +45,11 @@ export default class PageHome extends Component {
         }
     }
     componentDidMount() {
-        this.getPokemons(this.state.limit, this.state.offset)
+        this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType)
     }
-    getPokemons = async (limit, offset) => {
+    getPokemons = async (limit, offset, typeFilter) => {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
-        this.getCardData(response.data.results)
+        this.getCardData(response.data.results, typeFilter)
     }
     getCardData = async (result, typeFilter, sortBy) => {
         const unsortedArray = []
@@ -63,23 +63,29 @@ export default class PageHome extends Component {
         })
         );
         const sortedArray = unsortedArray.sort((a,b) => a.id > b.id ? 1 : -1)
-        finalArray = sortedArray.filter((item => item.name.includes('bulbasaur')))
-        console.log(finalArray);
+        sortedArray.forEach((pokemon, index) => {
+            pokemon.types.forEach((type, index) => {
+                if(type.type.name === typeFilter) {
+                    finalArray.push(pokemon);
+                }
+            });
+        })
         this.setState({pokemonData: finalArray, isLoading: false})
     }
     handleOffsetChange = async (e) => {
+        console.log(e.target.value);
         switch(e.target.value) {
             case 'kanto': 
-                this.setState(() => ({ limit: this.state.regions[0].limit, offset: this.state.regions[0].offset, isLoading: true, region: 'kanto' }), () => { this.getPokemons(this.state.limit, this.state.offset) })
+                this.setState(() => ({ limit: this.state.regions[0].limit, offset: this.state.regions[0].offset, isLoading: true, region: 'kanto' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
                 break;
             case 'johto':
-                this.setState(() => ({ limit: this.state.regions[1].limit, offset: this.state.regions[1].offset, isLoading: true, region: 'johto' }), () => { this.getPokemons(this.state.limit, this.state.offset) })
+                this.setState(() => ({ limit: this.state.regions[1].limit, offset: this.state.regions[1].offset, isLoading: true, region: 'johto' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
                 break;
             case 'hoenn':
-                this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[2].offset, isLoading: true, region: 'hoenn' }), () => { this.getPokemons(this.state.limit, this.state.offset) })
+                this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[2].offset, isLoading: true, region: 'hoenn' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
                 break;
             default: 
-                this.setState(() => ({ type: e.target.value }), () => { this.filterPokemon() })
+                this.setState(() => ({ selectedType: e.target.value }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
         }
         
     }
