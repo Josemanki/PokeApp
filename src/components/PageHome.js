@@ -51,9 +51,9 @@ export default class PageHome extends Component {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
         this.getCardData(response.data.results)
     }
-    getCardData = async (result) => {
+    getCardData = async (result, typeFilter, sortBy) => {
         const unsortedArray = []
-
+        let finalArray = []
         await Promise.all(
         result.map((pokemonItem) => {
             return axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonItem.name}`)
@@ -63,7 +63,9 @@ export default class PageHome extends Component {
         })
         );
         const sortedArray = unsortedArray.sort((a,b) => a.id > b.id ? 1 : -1)
-        this.setState({pokemonData: sortedArray, isLoading: false})
+        finalArray = sortedArray.filter((item => item.name.includes('bulbasaur')))
+        console.log(finalArray);
+        this.setState({pokemonData: finalArray, isLoading: false})
     }
     handleOffsetChange = async (e) => {
         switch(e.target.value) {
