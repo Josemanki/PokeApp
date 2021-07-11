@@ -17,6 +17,8 @@ export default class PageHome extends Component {
             region: 'kanto',
             limit: 20,
             offset: 0,
+            sortBy: 'sortid',
+            searchText: '',
             regions: [
                 {
                     name: 'kanto',
@@ -37,7 +39,7 @@ export default class PageHome extends Component {
             types: [
                 "all types", "grass", "bug", "dark", "dragon", "electric", "fairy", "fighting", "fire", "flying", "ghost", "ground", "ice", "normal", "poison", "psychic", "rock", "steel", "water"
             ],
-            selectedType: "water",
+            selectedType: "all types",
             filters: {
                 region: 'kanto',
                 type: 'all types',
@@ -62,35 +64,42 @@ export default class PageHome extends Component {
             })
         })
         );
-        const sortedArray = unsortedArray.sort((a,b) => a.id > b.id ? 1 : -1)
-        sortedArray.forEach((pokemon, index) => {
-            pokemon.types.forEach((type, index) => {
-                if(type.type.name === typeFilter) {
-                    finalArray.push(pokemon);
-                }
-            });
-        })
+        let sortedArray = unsortedArray.sort((a, b) => this.state.sortBy === 'sortid' ? a.id > b.id ? 1 : -1 : a.name > b.name ? 1 : -1)
+        sortedArray = this.state.searchText.length == 0 ? sortedArray : sortedArray.filter(item => item.name.includes(this.state.searchText.toLowerCase()))
+        this.state.selectedType === "all types" ? finalArray = sortedArray 
+        :
+            sortedArray.forEach((pokemon, index) => {
+                pokemon.types.forEach((type, index) => {
+                    if (type.type.name === typeFilter) {
+                        finalArray.push(pokemon);
+                    }
+                });
+            })
         this.setState({pokemonData: finalArray, isLoading: false})
     }
-    handleOffsetChange = async (e) => {
-        console.log(e.target.value);
+    handleSorting = (e) => {
         switch(e.target.value) {
             case 'kanto': 
-                this.setState(() => ({ limit: this.state.regions[0].limit, offset: this.state.regions[0].offset, isLoading: true, region: 'kanto' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
+                this.setState(() => ({ limit: this.state.regions[0].limit, offset: this.state.regions[0].offset, isLoading: true, region: 'kanto', selectedType: 'all types', sortBy: 'sortid' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
                 break;
             case 'johto':
-                this.setState(() => ({ limit: this.state.regions[1].limit, offset: this.state.regions[1].offset, isLoading: true, region: 'johto' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
+                this.setState(() => ({ limit: this.state.regions[1].limit, offset: this.state.regions[1].offset, isLoading: true, region: 'johto', selectedType: 'all types', sortBy: 'sortid' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
                 break;
             case 'hoenn':
-                this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[2].offset, isLoading: true, region: 'hoenn' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
+                this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[2].offset, isLoading: true, region: 'hoenn', selectedType: 'all types', sortBy: 'sortid' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
+                break;
+            case 'sortid':
+                this.setState(() => ({ sortBy: e.target.value }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType, this.state.sortBy) })
+                break;
+            case 'sortname':
+                this.setState(() => ({ sortBy: e.target.value }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType, this.state.sortBy) })
                 break;
             default: 
-                this.setState(() => ({ selectedType: e.target.value }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
-        }
-        
+                this.setState(() => ({ selectedType: e.target.value }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType, this.state.sortBy) })
+        } 
     }
-    filterPokemon = () => {
-
+    handleSearch = (e) => {
+        this.setState({ searchText: e.target.value }, () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType, this.state.sortBy) })
     }
     render() {
         return (
@@ -100,20 +109,24 @@ export default class PageHome extends Component {
                     <Filters 
                         regions={this.state.regions} 
                         region={this.state.region} 
-                        handleOffsetChange={this.handleOffsetChange}
+                        handleSorting={this.handleSorting}
+                        handleSearch={this.handleSearch}
                         types={this.state.types}
                         selectedType={this.state.selectedType}
                         />
                 <div className="pokecards">
-                    {Object.keys(this.state.pokemonData).map((index) => {
-                        return (
-                            <Pokemon
-                                name={this.state.pokemonData[index].name}
-                                key={this.state.pokemonData[index].name}
-                                image={this.state.pokemonData[index].sprites.other["official-artwork"].front_default}
-                                id={this.state.pokemonData[index].id}
-                            />)
-                    })}
+                        {this.state.pokemonData.length == 0 ? <p>No such Pokemon 
+                        :
+                        (</p> : Object.keys(this.state.pokemonData).map((index) => {
+                            return (
+                                <Pokemon
+                                    name={this.state.pokemonData[index].name}
+                                    key={this.state.pokemonData[index].name}
+                                    image={this.state.pokemonData[index].sprites.other["official-artwork"].front_default}
+                                    id={this.state.pokemonData[index].id}
+                                    types={this.state.pokemonData[index].types}
+                                />)
+                        })}
                 </div>
             </div>
         )

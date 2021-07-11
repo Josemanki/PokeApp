@@ -8,8 +8,9 @@ export default function Pokemon(props) {
                 <img className="pokemon__sprite" src={props.image} alt="Chansey" />
                 <h3 className="capitalize pokemon__name">{props.name}</h3>
                 <div className="pokemon__card__elements">
-                    <img src="https://via.placeholder.com/30" alt="Normal" />
-                    <img src="https://via.placeholder.com/30" alt="Normal" />
+                    <div>{props.types.map((item) => {
+                        return <p key={item.type.name}>{item.type.name}</p>
+                    })}</div>
                 </div>
             </div>
         </div>
