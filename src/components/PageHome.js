@@ -4,6 +4,8 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import Filters from './Filters'
 import Pokemon from './Pokemon'
+import PokemonDetails from './PokemonDetails'
+import { Link } from "react-router-dom";
 
 export default class PageHome extends Component {
     constructor(props) {
@@ -119,13 +121,18 @@ export default class PageHome extends Component {
                         :
                         (</p> : Object.keys(this.state.pokemonData).map((index) => {
                             return (
-                                <Pokemon
-                                    name={this.state.pokemonData[index].name}
-                                    key={this.state.pokemonData[index].name}
-                                    image={this.state.pokemonData[index].sprites.other["official-artwork"].front_default}
-                                    id={this.state.pokemonData[index].id}
-                                    types={this.state.pokemonData[index].types}
-                                />)
+                                <div className="pokemon__card__wrapper" key={this.state.pokemonData[index].name}>
+                                    <Link key={this.state.pokemonData[index].name} to={{pathname: `/${this.state.pokemonData[index].name}`, state:{...this.state.pokemonData[index]}}}>
+                                        <Pokemon
+                                            name={this.state.pokemonData[index].name}
+                                            key={this.state.pokemonData[index].name}
+                                            image={this.state.pokemonData[index].sprites.other["official-artwork"].front_default}
+                                            id={this.state.pokemonData[index].id}
+                                            types={this.state.pokemonData[index].types}
+                                        />
+                                    </Link>
+                                </div>
+                            )
                         })}
                 </div>
             </div>
