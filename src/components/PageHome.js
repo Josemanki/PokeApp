@@ -17,7 +17,7 @@ export default class PageHome extends Component {
             pokeNumber: '',
             isLoading: true,
             region: 'kanto',
-            limit: 20,
+            limit: 24,
             offset: 0,
             sortBy: 'sortid',
             searchText: '',
@@ -122,7 +122,7 @@ export default class PageHome extends Component {
                         (</p> : Object.keys(this.state.pokemonData).map((index) => {
                             return (
                                 <div className="pokemon__card__wrapper" key={this.state.pokemonData[index].name}>
-                                    <Link key={this.state.pokemonData[index].name} to={{pathname: `/${this.state.pokemonData[index].name}`, state:{...this.state.pokemonData[index]}}}>
+                                    <Link className="pokemon__link" key={this.state.pokemonData[index].name} to={{ pathname: `/${this.state.pokemonData[index].name}`, state: { ...this.state.pokemonData[index]}}}>
                                         <Pokemon
                                             name={this.state.pokemonData[index].name}
                                             key={this.state.pokemonData[index].name}

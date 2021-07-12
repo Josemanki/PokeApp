@@ -1,8 +1,12 @@
 @import './base/settings';
 @import './base/base';
 
+*{
+    box-sizing: border-box;
+}
+
 .container {
-    max-width: 140rem;
+    max-width: 180rem;
     margin: 0 auto;
 }
 
@@ -48,7 +52,7 @@
 
 .pokemon__card__wrapper {
     margin: 20px 20px;
-    min-width: 230px;
+    min-width: 250px;
 }
 
 .pokemon__card {
@@ -57,7 +61,17 @@
     justify-content: center;
     flex-direction: column;
     height: 350px;
-    margin: 10px 0px
+    margin: 10px 0px;
+}
+
+.pokemon__link{
+    text-decoration: none;
+    color: black;
+}
+
+.pokemon__link:visited{
+    text-decoration: none;
+    color: black;
 }
 
 .footer {
@@ -65,5 +79,44 @@
     justify-content: space-between;
     align-items: center;
     height: 200px;
-    border: 1px solid red;
+}
+
+.details__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details__card {
+    width: 70rem;
+    height: 50rem;
+    display: flex;
+}
+
+.details__photo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+    flex: 1;
+    background-color: rgba(255, 255, 255, .5);
+}
+
+.details__info {
+    flex: 2.5
+}
+
+.container__description {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container__description--alt {
+    display: flex;
+}
+
+.details__stat__columns {
+    display: flex;
+    flex-direction: column;
 }
