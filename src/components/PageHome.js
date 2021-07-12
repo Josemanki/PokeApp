@@ -5,6 +5,7 @@ import "regenerator-runtime/runtime";
 import Filters from './Filters'
 import Pokemon from './Pokemon'
 import PokemonDetails from './PokemonDetails'
+import LazyLoad from 'react-lazyload';
 import { Link } from "react-router-dom";
 
 export default class PageHome extends Component {
@@ -105,7 +106,11 @@ export default class PageHome extends Component {
     }
     render() {
         return (
-            this.state.isLoading === true ? <p>COMPONENT LOADING</p> 
+            this.state.isLoading === true ? 
+            <div className="loading__screen">
+                <img className="loading__screen__gif" src="./assets/pikachu.gif" alt="" />
+                <img src="./assets/loading.png" alt="" />
+            </div> 
             : 
             <div className="container">
                     <Filters 
@@ -117,12 +122,16 @@ export default class PageHome extends Component {
                         selectedType={this.state.selectedType}
                         />
                 <div className="pokecards">
-                        {this.state.pokemonData.length == 0 ? <p>No such Pokemon 
-                        :
-                        (</p> : Object.keys(this.state.pokemonData).map((index) => {
+                        {this.state.pokemonData.length == 0 ? 
+                        <div className="not__found">
+                                <p>No such Pokemon :(</p>
+                        </div>
+                         : 
+                         Object.keys(this.state.pokemonData).map((index) => {
                             return (
                                 <div className="pokemon__card__wrapper" key={this.state.pokemonData[index].name}>
                                     <Link className="pokemon__link" key={this.state.pokemonData[index].name} to={{ pathname: `/${this.state.pokemonData[index].name}`, state: { ...this.state.pokemonData[index]}}}>
+                                        <LazyLoad height={350}>
                                         <Pokemon
                                             name={this.state.pokemonData[index].name}
                                             key={this.state.pokemonData[index].name}
@@ -130,6 +139,7 @@ export default class PageHome extends Component {
                                             id={this.state.pokemonData[index].id}
                                             types={this.state.pokemonData[index].types}
                                         />
+                                        </LazyLoad>
                                     </Link>
                                 </div>
                             )

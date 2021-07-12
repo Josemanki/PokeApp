@@ -1,0 +1,117 @@
+.details__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details__wrapper{
+    max-width: 100rem;
+    min-height: 62vh;
+    margin: 0 auto;
+}
+
+.details__card {
+    display: flex;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 18px -5px rgba(0,0,0,0.5);
+}
+
+.details__photo__tab {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+    flex: 1;
+    background-color: rgba(255, 255, 255, .5);
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+
+.details__info {
+    flex: 2.5
+}
+
+.details__pokemon__genus {
+    font-family: 'Roboto';
+    font-weight: 500;
+    padding: .6rem;
+    border-radius: 1.5rem;
+}
+
+.pokemon__type {
+    margin: .3rem 0rem;
+}
+
+.details__secondary__description {
+    font-size: 1.4rem;
+}
+
+.container__description {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+    flex: 1;
+    background-color: rgba(255, 255, 255, .5);
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+
+.description__text {
+    font-family: 'VT323';
+    font-size: 2.5rem;
+}
+
+.container__description--alt {
+    display: flex;
+    background-color: rgba(255, 255, 255, .5);
+    margin: 10px;
+    background-color: rgba(255, 255, 255, .5);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.stats__container {
+    flex-wrap: wrap;
+}
+
+.details__stat__columns {
+    display: flex;
+    min-width: 30%;
+    flex-direction: column;
+    margin: 1rem 0rem;
+    flex: 1;
+}
+
+.details__category__name {
+    margin: 1rem 3rem;
+}
+
+.details__evo__name{
+    text-align: center;
+}
+
+.evo__token {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.details__evo__image {
+    max-width: 8rem;
+    max-height: 8rem;
+}
+
+.details__evo__image__field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    min-height: 11rem;
+    min-width: 11rem;
+    margin-top: 1.2rem;
+    box-shadow: 5px 5px 18px 0px rgba(0,0,0,0.5);
+}

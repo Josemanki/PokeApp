@@ -1,0 +1,26 @@
+.filters-tab {
+    display: flex;
+    justify-content: center;
+    margin: 4rem;
+}
+
+.filter__input {
+    font-size: 1.5rem;
+    height: 4rem;
+    padding: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.filter__input > option {
+    font-family: 'Roboto', sans-serif;
+}
+
+.filter__option {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+}

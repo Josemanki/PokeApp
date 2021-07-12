@@ -1,140 +1,17 @@
 @import './base/settings';
 @import './base/base';
+@import './components/_header';
+@import './components/footer';
+@import './components/_filters';
+@import './components/_homepage';
+@import './components/_pokemondetails';
 
 *{
     box-sizing: border-box;
+    font-family: 'Press Start 2P';
 }
 
 .container {
     max-width: 180rem;
     margin: 0 auto;
-}
-
-.header {
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pokecards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.capitalize {
-    text-transform: capitalize;
-}
-
-.pokemon__types {
-    display: flex;
-    flex-direction: column;
-}
-
-.pokemon__type {
-    width: 100px;
-}
-
-.pokemon__sprite {
-    max-width: 150px;
-    max-height: 150px;
-}
-
-.filters-tab {
-    display: flex;
-    justify-content: center;
-}
-
-.pokemon__card__elements {
-    display: flex;
-}
-
-.pokemon__card__wrapper {
-    margin: 20px 20px;
-    min-width: 250px;
-}
-
-.pokemon__card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 350px;
-    margin: 10px 0px;
-}
-
-.pokemon__link{
-    text-decoration: none;
-    color: black;
-}
-
-.pokemon__link:visited{
-    text-decoration: none;
-    color: black;
-}
-
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 200px;
-}
-
-.details__wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.details__card {
-    width: 70rem;
-    height: 50rem;
-    display: flex;
-}
-
-.details__photo {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin: 10px;
-    flex: 1;
-    background-color: rgba(255, 255, 255, .5);
-}
-
-.details__info {
-    flex: 2.5
-}
-
-.container__description {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 10px;
-    flex: 1;
-    background-color: rgba(255, 255, 255, .5);
-}
-
-.container__description--alt {
-    display: flex;
-    background-color: rgba(255, 255, 255, .5);
-    margin: 10px;
-}
-
-.details__stat__columns {
-    display: flex;
-    flex-direction: column;
-}
-
-.details__evo__name{
-    text-align: center;
-}
-
-.details__category__name {
-    margin: 10px;
-}
-
-.details__evo__image {
-    max-width: 100px;
 }

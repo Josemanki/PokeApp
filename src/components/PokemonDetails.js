@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { colorTypeGradients } from '../utils/utils'
 import { Redirect } from 'react-router-dom'
+import { lazyload } from 'react-lazyload';
+
+@lazyload({
+    height: 200,
+    once: true,
+    offset: 100
+})
 
 export default class PokemonDetails extends Component {
     constructor(props) {
@@ -84,23 +92,23 @@ export default class PokemonDetails extends Component {
 
         switch (genderRate) {
             case 0:
-                return <div><span>100% <span style = {{color: 'lightblue'}}>M</span></span><span> 0% <span style={{color: 'pink'}}>F</span></span></div>;
+                return <div className="details__secondary__description"><span >100% <span style = {{color: 'lightblue'}}>M</span></span><span> 0% <span style={{color: 'pink'}}>F</span></span></div>;
             case 1:
-                return <div><span>87.5% <span style = {{color: 'lightblue'}}>M</span></span> /<span>  12.5% <span style={{color: 'pink'}}>F</span></span></div>;
+                return <div className="details__secondary__description"><span>87.5% <span style = {{color: 'lightblue'}}>M</span></span> /<span>  12.5% <span style={{color: 'pink'}}>F</span></span></div>;
             case 2:
-                return <div><span>75% <span style = {{color: 'lightblue'}}>M</span></span><span>  25% <span style={{color: 'pink'}}>F</span></span></div>;
+                return <div className="details__secondary__description"><span>75% <span style = {{color: 'lightblue'}}>M</span></span><span>  25% <span style={{color: 'pink'}}>F</span></span></div>;
             case 3:
-                return <div><span>62.5% <span style = {{color: 'lightblue'}}>M</span></span><span>  37.5% <span style={{color: 'pink'}}>F</span></span></div>;
+                return <div className="details__secondary__description"><span>62.5% <span style = {{color: 'lightblue'}}>M</span></span><span>  37.5% <span style={{color: 'pink'}}>F</span></span></div>;
             case 4:
-                return <div><span>50% <span style = {{color: 'lightblue'}}>M</span></span><span>  50% <span style={{color: 'pink'}}>F</span></span></div>;
+                return <div className="details__secondary__description"><span>50% <span style = {{color: 'lightblue'}}>M</span></span><span>  50% <span style={{color: 'pink'}}>F</span></span></div>;
             case 5:
-                return <div><span>37.5% <span style = {{color: 'lightblue'}}>M</span></span><span>  62.5% <span style={{color: 'pink'}}>F</span></span></div>;
+                return <div className="details__secondary__description"><span>37.5% <span style = {{color: 'lightblue'}}>M</span></span><span>  62.5% <span style={{color: 'pink'}}>F</span></span></div>;
             case 6:
-                return <div><span>25% <span style = {{color: 'lightblue'}}>M</span></span><span>  75% <span style={{color: 'pink'}}>F</span></span></div>;
+                return <div className="details__secondary__description"><span>25% <span style = {{color: 'lightblue'}}>M</span></span><span>  75% <span style={{color: 'pink'}}>F</span></span></div>;
             case 7:
-                return <div><span>12.5% <span style = {{color: 'lightblue'}}>M</span></span><span>  87.5% <span style={{color: 'pink'}}>F</span></span></div>;
+                return <div className="details__secondary__description"><span>12.5% <span style = {{color: 'lightblue'}}>M</span></span><span>  87.5% <span style={{color: 'pink'}}>F</span></span></div>;
             case 8:
-                return <div><span>0% <span style = {{color: 'lightblue'}}>M</span></span><span>  100% <span style={{color: 'pink'}}>F</span></span></div>;
+                return <div className="details__secondary__description"><span>0% <span style = {{color: 'lightblue'}}>M</span></span><span>  100% <span style={{color: 'pink'}}>F</span></span></div>;
             default:
                 return <span>Loading...</span>
         }
@@ -121,25 +129,25 @@ export default class PokemonDetails extends Component {
             {this.props.location.state ?
             <div className="details__wrapper">
                 <div className="details__card" style={{ 'background': `linear-gradient(${finalColor[0]}, ${finalColor[1]})`}}>
-                    <div className="details__photo">
-                        <span className="details__pokenum">#{data.id}</span>
+                    <div className="details__photo__tab">
+                        <span className="details__pokenum">#{String(data.id).padStart(3, '0')}</span>
                         <h3 className="capitalize details__pokemon-name">{data.name}</h3>
-                        <span>{this.state.pokemonGenus}</span>
+                        <span style={{'background': finalColor[0]}} className="details__pokemon__genus">{this.state.pokemonGenus}</span>
                         <img className="pokemon__sprite" src={this.state.sprites.other["official-artwork"].front_default} alt="" />
                         <div className="pokemon__types">
                             {this.state.types.map((item) => {
                                 return <img className="pokemon__type" key={item.type.name} src={`./assets/${item.type.name}.png`} alt="" />
                             })}
                         </div>
-                        <span>{this.state.height/10} m</span>
-                        <span>{this.state.weight/10} Kg</span>
+                        <span className="details__secondary__description">Weight: {this.state.height/10} m</span>
+                        <span className="details__secondary__description">Height: {this.state.weight/10} Kg</span>
                         {this.fetchGenderRate(this.state.genderRate)}
                     </div>
                     <div className="details__info">
                         <div>
                             <h3 className="details__category__name">About</h3>
                             <div className="container__description">
-                                <span>{this.state.flavorText}</span>
+                                <span className="description__text">{this.state.flavorText}</span>
                             </div>
                         </div>
                         <div>
@@ -148,7 +156,7 @@ export default class PokemonDetails extends Component {
                                 <ul>
                                 {this.state.abilities.map(({ability}) => {
                                     return (
-                                        <li key={ability.name} className="capitalize">{ability.name}</li>
+                                        <li key={ability.name} className="capitalize description__text">{ability.name}</li>
                                 )
                                 })}
                                 </ul>
@@ -156,7 +164,7 @@ export default class PokemonDetails extends Component {
                         </div>
                         <div>
                             <h3 className="details__category__name">Stats</h3>
-                            <div className="container__description">
+                            <div className="container__description stats__container">
                                     {this.state.stats.map((stat, index) => {
                                         return (
                                             <div key={stat.stat.name} className="details__stat__columns">
@@ -164,7 +172,7 @@ export default class PokemonDetails extends Component {
                                                     <span key={stat.stat.name} className="capitalize">{stat.stat.name}</span>
                                                 </div>
                                                 <div key={stat.stat.name} className="details__stat__columns__value">
-                                                    <span>{stat.base_stat}</span>
+                                                    <span className="description__text">{stat.base_stat}</span>
                                                 </div>
                                             </div>
                                         )
@@ -175,14 +183,17 @@ export default class PokemonDetails extends Component {
                             <h3 className="details__category__name">Evolutions</h3>
                             <div className="container__description">
                             {this.state.detailsEvoChain.map((item) => (
-                                <div className="">
-                                    <div className="details__evo__name">
-                                        <span className="capitalize">{item.name}</span>
+                                <Link className="pokemon__link" key={item.name} to={`/${item.name}`}>
+                                    <div key={item.name} className="evo__token" >
+                                        <div className="details__evo__name">
+                                            <span className="capitalize">{item.name}</span>
+                                        </div>
+                                        <div className="details__evo__image__field" style={{ 'background': `linear-gradient(${finalColor[0]}, ${finalColor[1]})` }}>
+                                            <img src={item.image} className="details__evo__image" />
+                                        </div>
                                     </div>
-                                    <div className="details__evo__image__field">
-                                        <img src={item.image} className="details__evo__image" />
-                                    </div>
-                                </div>
+                                </Link>
+                                
                             ))}
                             </div>
                         </div>
