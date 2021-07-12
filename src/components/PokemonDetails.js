@@ -28,19 +28,23 @@ export default class PokemonDetails extends Component {
             abilities: [],
             stats: [],
             evoChain: '',
-            detailsEvoChain: []
+            detailsEvoChain: [{
+                name: '',
+                url: '',
+                image: ''
+            }]
         }
     }
     componentDidMount = async () => {
-        this.setState({ ...this.props.location.state })
-        this.fetchCardDetails(this.props.location.state.species.url)
+        this.fetchCardDetails(this.props.location.state, this.props.location.state.species.url)
     }
-    fetchCardDetails = async (url) => {
+    fetchCardDetails = async (state, url) => {
         await axios.get(url)
             .then(({data}) => {
                 let flavorText = data.flavor_text_entries.filter((item) => item.language.name === 'en')
                 this.setState(
-                {
+                {   
+                    ...state,
                     pokemonGenus: data.genera.filter((item) => item.language.name === 'en')[0].genus,
                     genderRate: data.gender_rate,
                     evoChain: data.evolution_chain.url,
@@ -53,7 +57,6 @@ export default class PokemonDetails extends Component {
         .then((response) => {
             let evoData = response.data.chain
             let evoArray = [];
-            let i = 0
             evoArray.push(evoData.species)
             if(evoData.evolves_to[0].species != undefined) {
                 evoArray.push(evoData.evolves_to[0].species)
@@ -65,14 +68,17 @@ export default class PokemonDetails extends Component {
         })
     }
     fetchEvoImages = async (evoArray) => {
-        const detailsEvoChain = []
-        let sortedChain = []
-        evoArray.forEach(async (pokemon, index) => {
-            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
-            let tempPokemon = { ...pokemon, image: response.data.sprites.other["official-artwork"].front_default}
-            detailsEvoChain.push(tempPokemon)
+        let detailsEvoChain = []
+
+        const requestArr = evoArray.map(async (item) => {
+            await axios.get(`https://pokeapi.co/api/v2/pokemon/${item.name}`).then((res) => {
+                detailsEvoChain.push({ ...item, image: res.data.sprites.other["official-artwork"].front_default})
+            })
         })
-        this.setState({ detailsEvoChain: detailsEvoChain } )
+
+        Promise.all(requestArr).then((data) => {
+            this.setState({detailsEvoChain: detailsEvoChain.sort((a, b) => a.url > b.url ? 1 : -1 )})
+        })
     }
     fetchGenderRate = (genderRate) => {
 
@@ -131,13 +137,13 @@ export default class PokemonDetails extends Component {
                     </div>
                     <div className="details__info">
                         <div>
-                            <h3>About</h3>
+                            <h3 className="details__category__name">About</h3>
                             <div className="container__description">
                                 <span>{this.state.flavorText}</span>
                             </div>
                         </div>
                         <div>
-                            <h3>Abilities</h3>
+                            <h3 className="details__category__name">Abilities</h3>
                                     <div className="container__description--alt">
                                 <ul>
                                 {this.state.abilities.map(({ability}) => {
@@ -149,7 +155,7 @@ export default class PokemonDetails extends Component {
                             </div>
                         </div>
                         <div>
-                            <h3>Stats</h3>
+                            <h3 className="details__category__name">Stats</h3>
                             <div className="container__description">
                                     {this.state.stats.map((stat, index) => {
                                         return (
@@ -166,9 +172,18 @@ export default class PokemonDetails extends Component {
                             </div>
                         </div>
                         <div>
-                            <h3>Evolutions</h3>
+                            <h3 className="details__category__name">Evolutions</h3>
                             <div className="container__description">
-                            {}
+                            {this.state.detailsEvoChain.map((item) => (
+                                <div className="">
+                                    <div className="details__evo__name">
+                                        <span className="capitalize">{item.name}</span>
+                                    </div>
+                                    <div className="details__evo__image__field">
+                                        <img src={item.image} className="details__evo__image" />
+                                    </div>
+                                </div>
+                            ))}
                             </div>
                         </div>
                     </div>

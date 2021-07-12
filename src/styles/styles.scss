@@ -110,13 +110,31 @@
 .container__description {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    margin: 10px;
+    flex: 1;
+    background-color: rgba(255, 255, 255, .5);
 }
 
 .container__description--alt {
     display: flex;
+    background-color: rgba(255, 255, 255, .5);
+    margin: 10px;
 }
 
 .details__stat__columns {
     display: flex;
     flex-direction: column;
+}
+
+.details__evo__name{
+    text-align: center;
+}
+
+.details__category__name {
+    margin: 10px;
+}
+
+.details__evo__image {
+    max-width: 100px;
 }
