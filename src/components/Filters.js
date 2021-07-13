@@ -28,7 +28,7 @@ export default function Filters(props) {
             </div>
             <div className="filter__option">
                 <label htmlFor="pokemon-search">Search</label>
-                <input autocomplete="off" onChange={props.handleSearch} type="text" name="pokemon-search" id="pokemon-search" placeholder="Search here" className="filter__input" />
+                <input autoComplete="off" onChange={props.handleSearch} type="text" name="pokemon-search" id="pokemon-search" placeholder="Search here" className="filter__input" />
             </div>
         </div>
     )

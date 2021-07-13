@@ -207,7 +207,8 @@ export default class PokemonDetails extends Component {
                                             </div>
                                         </Link>
                                     </div>
-                                    <div key={item} className="evo__arrow">{elements[index + 1] && '>'}</div>
+                                    {elements.length === index + 3 && <div key={item} className={`evo__arrow`}>{elements[index + 1] && '>'}</div>}
+                                    {elements.length === index + 2 && <div key={item} className={`evo__arrow`}>{elements[index + 1] && '>'}</div>}
                                 </React.Fragment>
                             ))}
                             </div>
