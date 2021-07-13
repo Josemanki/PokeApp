@@ -89,14 +89,14 @@ export default class PokemonDetails extends Component {
     fetchEvoImages = async (evoArray) => {
         let detailsEvoChain = []
         let currentData = []
-
+        
         const requestArr = evoArray.map(async (item) => {
             await axios.get(`https://pokeapi.co/api/v2/pokemon/${item.name}`).then((res) => {
                 currentData.push(res.data)
                 detailsEvoChain.push({ ...item, image: res.data.sprites.other["official-artwork"].front_default})
             })
         })
-
+        
         Promise.all(requestArr).then((data) => {
             this.setState({ currentPokemon: currentData.filter((item) => item.name === location.pathname.split('/')[1])[0], detailsEvoChain: detailsEvoChain.sort((a, b) => a.url > b.url ? 1 : -1 )})
         })
@@ -197,7 +197,7 @@ export default class PokemonDetails extends Component {
                             <h3 className="details__category__name">Evolutions</h3>
                             <div className="container__description evo__container">
                             {this.state.detailsEvoChain.map((item, index, elements) => (
-                                <React.Fragment>
+                                <React.Fragment key={item.name}>
                                     <div>
                                         <Link className="pokemon__link" key={item.name} to={`/${item.name}`}>
                                             <div key={item.name} className="evo__token" >
@@ -210,7 +210,7 @@ export default class PokemonDetails extends Component {
                                             </div>
                                         </Link>
                                     </div>
-                                    <div className="evo__arrow">{elements[index + 1] && '>'}</div>
+                                    <div key={item} className="evo__arrow">{elements[index + 1] && '>'}</div>
                                 </React.Fragment>
                             ))}
                             </div>

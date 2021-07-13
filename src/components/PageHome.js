@@ -106,7 +106,7 @@ export default class PageHome extends Component {
                     }
                 });
             })
-        this.setState({pokemonData: finalArray, isLoading: false}, () => {console.log(this.state);})
+        this.setState({pokemonData: finalArray, isLoading: false})
     }
     handleSorting = (e) => {
         switch(e.target.value) {
@@ -118,6 +118,21 @@ export default class PageHome extends Component {
                 break;
             case 'hoenn':
                 this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[2].offset, isLoading: true, region: 'hoenn', selectedType: 'all types', sortBy: 'sortid' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
+                break;
+            case 'sinnoh':
+                this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[3].offset, isLoading: true, region: 'sinnoh', selectedType: 'all types', sortBy: 'sortid' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
+                break;
+            case 'unova':
+                this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[4].offset, isLoading: true, region: 'unova', selectedType: 'all types', sortBy: 'sortid' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
+                break;
+            case 'kalos':
+                this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[5].offset, isLoading: true, region: 'kalos', selectedType: 'all types', sortBy: 'sortid' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
+                break;
+            case 'alola':
+                this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[6].offset, isLoading: true, region: 'alola', selectedType: 'all types', sortBy: 'sortid' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
+                break;
+            case 'galar':
+                this.setState(() => ({ limit: this.state.regions[2].limit, offset: this.state.regions[7].offset, isLoading: true, region: 'galar', selectedType: 'all types', sortBy: 'sortid' }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType) })
                 break;
             case 'sortid':
                 this.setState(() => ({ sortBy: e.target.value }), () => { this.getPokemons(this.state.limit, this.state.offset, this.state.selectedType, this.state.sortBy) })
