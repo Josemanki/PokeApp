@@ -4,7 +4,6 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import Filters from './Filters'
 import Pokemon from './Pokemon'
-import PokemonDetails from './PokemonDetails'
 import LazyLoad from 'react-lazyload';
 import { Link } from "react-router-dom";
 
@@ -13,30 +12,59 @@ export default class PageHome extends Component {
         super(props)
         this.state = {
             allPokemons: [],
-            pokemonData: [],
+            pokemonData: [
+                {
+                    species: ''
+                }
+            ],
             pokeName: '',
             pokeNumber: '',
             isLoading: true,
             region: 'kanto',
-            limit: 24,
+            limit: 151,
             offset: 0,
             sortBy: 'sortid',
             searchText: '',
             regions: [
                 {
-                    name: 'kanto',
-                    limit: 20,
-                    offset: 0
-                }, 
-                {
-                    name: 'johto',
-                    limit: 20,
-                    offset: 20
+                    name: "kanto",
+                    limit: 151,
+                    offset: 0,
                 },
                 {
-                    name: 'hoenn',
-                    limit: 20,
-                    offset: 40
+                    name: "johto",
+                    limit: 100,
+                    offset: 151,
+                },
+                {
+                    name: "hoenn",
+                    limit: 135,
+                    offset: 251,
+                },
+                {
+                    name: "sinnoh",
+                    limit: 108,
+                    offset: 386,
+                },
+                {
+                    name: "unova",
+                    limit: 155,
+                    offset: 494,
+                },
+                {
+                    name: "kalos",
+                    limit: 72,
+                    offset: 649,
+                },
+                {
+                    name: "alola",
+                    limit: 88,
+                    offset: 721,
+                },
+                {
+                    name: "galar",
+                    limit: 89,
+                    offset: 809,
                 }
             ],
             types: [
@@ -78,7 +106,7 @@ export default class PageHome extends Component {
                     }
                 });
             })
-        this.setState({pokemonData: finalArray, isLoading: false})
+        this.setState({pokemonData: finalArray, isLoading: false}, () => {console.log(this.state);})
     }
     handleSorting = (e) => {
         switch(e.target.value) {
@@ -130,7 +158,7 @@ export default class PageHome extends Component {
                          Object.keys(this.state.pokemonData).map((index) => {
                             return (
                                 <div className="pokemon__card__wrapper" key={this.state.pokemonData[index].name}>
-                                    <Link className="pokemon__link" key={this.state.pokemonData[index].name} to={{ pathname: `/${this.state.pokemonData[index].name}`, state: { ...this.state.pokemonData[index]}}}>
+                                    <Link className="pokemon__link" key={this.state.pokemonData[index].name} to={{ pathname: `/${this.state.pokemonData[index].name}`, pokeurl: { url: this.state.pokemonData[index].species.url }}}>
                                         <LazyLoad height={350}>
                                         <Pokemon
                                             name={this.state.pokemonData[index].name}

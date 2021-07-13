@@ -5,9 +5,10 @@
 }
 
 .details__wrapper{
+    margin-top: 2rem;
     max-width: 100rem;
     min-height: 62vh;
-    margin: 0 auto;
+    margin: 3rem auto;
 }
 
 .details__card {
@@ -15,6 +16,10 @@
     padding: 1.5rem;
     border-radius: 1rem;
     box-shadow: 5px 5px 18px -5px rgba(0,0,0,0.5);
+}
+
+.details__pokemon-name{
+    margin: 0;
 }
 
 .details__photo__tab {
@@ -56,7 +61,7 @@
     flex: 1;
     background-color: rgba(255, 255, 255, .5);
     border-radius: 1rem;
-    padding: 1.5rem;
+    padding: 1rem;
 }
 
 .description__text {
@@ -70,7 +75,7 @@
     margin: 10px;
     background-color: rgba(255, 255, 255, .5);
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0rem;
 }
 
 .stats__container {
@@ -81,8 +86,13 @@
     display: flex;
     min-width: 30%;
     flex-direction: column;
-    margin: 1rem 0rem;
+    margin: 0rem 0rem;
     flex: 1;
+}
+
+.details__stat__type {
+    font-size: 1.5rem;
+    color: red;
 }
 
 .details__category__name {
@@ -114,4 +124,63 @@
     min-width: 11rem;
     margin-top: 1.2rem;
     box-shadow: 5px 5px 18px 0px rgba(0,0,0,0.5);
+}
+
+@media only screen and (max-width:100rem) {
+    .details__secondary__description {
+        font-size: 1.1rem;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    .details__evo__name {
+        font-size: 1.3rem;
+    }
+    .details__card {
+        flex-direction: column;
+    }
+
+    .pokemon__types {
+        display: flex;
+        flex-direction: row;
+        margin: 1rem;
+    }
+
+    .pokemon__type {
+        margin: 0rem .2rem;
+    }
+
+    .details__secondary__descriptions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .details__secondary__description {
+        margin: 1rem;
+    }
+
+    .details__stat__type {
+        font-size: 1.3rem;
+    }
+
+    .details__stat__columns {
+        min-width: 40%;
+    }
+
+    .evo__container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .evo__token {
+        margin: 2rem 0rem;
+    }
+
+    .evo__arrow {
+        transform: rotate(90deg);
+    }
 }

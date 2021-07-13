@@ -24,3 +24,14 @@
     justify-content: center;
     margin: 1rem;
 }
+
+@media only screen and (max-width:91rem) {
+    .filters-tab {
+        flex-direction: column-reverse;
+        margin: 2rem;
+    }
+
+    .filter__input {
+        min-width: 20rem;
+    }
+}
