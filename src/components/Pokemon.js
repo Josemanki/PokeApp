@@ -1,5 +1,6 @@
 import React from 'react'
 import { colorTypeGradients } from '../utils/utils'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export default function Pokemon(props) {
     let finalColor;
@@ -13,7 +14,11 @@ export default function Pokemon(props) {
     return (
             <div className="pokemon__card grow" style={ { background: `linear-gradient(${finalColor[0]}, ${finalColor[1]})`} }>
             <h3 className="pokemon__number">{`#${String(props.id).padStart(3, '0')}`}</h3>
-                <img className="pokemon__sprite" src={props.image} alt={`${props.name}`} />
+            <LazyLoadImage
+                alt={props.name}
+                height={'100px'}
+                src={props.image}
+                width={'100px'} />
                 <h3 className="capitalize pokemon__name">{props.name}</h3>
                 <div className="pokemon__card__elements">
                     <div className="pokemon__types">

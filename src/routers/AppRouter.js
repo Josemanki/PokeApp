@@ -3,10 +3,9 @@ import Header from '../components/Header.js'
 import HomePage from '../components/HomePage.js'
 import Footer from '../components/Footer'
 import PokemonDetails from '../components/PokemonDetails.js'
-import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 const AppRouter = () => {
-
     return (
     <Router>
         <div className="container">

@@ -2,14 +2,7 @@ import React, { Component, Fragment } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { colorTypeGradients } from '../utils/utils'
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom'
-import { lazyload } from 'react-lazyload';
-
-@lazyload({
-    height: 200,
-    once: true,
-    offset: 100
-})
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 export default class PokemonDetails extends Component {
     constructor(props) {
@@ -137,6 +130,7 @@ export default class PokemonDetails extends Component {
             finalColor = colorTypeGradients(this.state.currentPokemon.types[0].type.name, this.state.currentPokemon.types[0].type.name, this.state.currentPokemon.types.length)
         }
         return (
+            <LazyLoadComponent>
         <div>
             {
             <div className="details__wrapper">
@@ -151,9 +145,12 @@ export default class PokemonDetails extends Component {
                                 return <img className="pokemon__type" key={item.type.name} src={`./assets/${item.type.name}.png`} alt="" />
                             })}
                         </div>
-                        <div className="details__secondary__descriptions">
-                            <span className="details__secondary__description">Weight: {this.state.currentPokemon.height / 10} m</span>
-                            <span className="details__secondary__description">Height: {this.state.currentPokemon.weight / 10} Kg</span>
+                        <div style={{'display': 'flex',
+                                     'flexDirection': 'column',
+                                     'alignItems': 'center',
+                                     'justifyContent': 'center'}}>
+                            <span>Weight: {this.state.currentPokemon.height / 10} m</span>
+                            <span>Height: {this.state.currentPokemon.weight / 10} Kg</span>
                             {this.fetchGenderRate(this.state.genderRate)}
                         </div>
                     </div>
@@ -220,6 +217,7 @@ export default class PokemonDetails extends Component {
             </div> 
 }
         </div>
+            </LazyLoadComponent>
         )}
 }
 

@@ -153,13 +153,16 @@
 
     .details__secondary__descriptions {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
     }
 
     .details__secondary__description {
         margin: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .details__stat__type {

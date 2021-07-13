@@ -4,8 +4,8 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import Filters from './Filters'
 import Pokemon from './Pokemon'
-import LazyLoad from 'react-lazyload';
 import { Link } from "react-router-dom";
+import ScrollToTop from "react-scroll-to-top";
 
 export default class PageHome extends Component {
     constructor(props) {
@@ -174,7 +174,7 @@ export default class PageHome extends Component {
                                 return (
                                     <div className="pokemon__card__wrapper" key={this.state.pokemonData[index].name}>
                                         <Link className="pokemon__link" key={this.state.pokemonData[index].name} to={{ pathname: `/${this.state.pokemonData[index].name}`, pokeurl: { url: this.state.pokemonData[index].species.url } }}>
-                                            <LazyLoad height={350}>
+                                            
                                                 <Pokemon
                                                     name={this.state.pokemonData[index].name}
                                                     key={this.state.pokemonData[index].name}
@@ -182,12 +182,13 @@ export default class PageHome extends Component {
                                                     id={this.state.pokemonData[index].id}
                                                     types={this.state.pokemonData[index].types}
                                                 />
-                                            </LazyLoad>
+
                                         </Link>
                                     </div>
                                 )
                             })}
                     </div>
+                    <ScrollToTop smooth />
                 </div>
         )
     }
