@@ -69,13 +69,14 @@ export default class PokemonDetails extends Component {
         .then((response) => {
             let evoData = response.data.chain
             let evoArray = [];
-            evoArray.push(evoData.species)
+            let babyCheck = {...evoData.species, isBaby: evoData.is_baby}
+            evoArray.push(babyCheck)
             if(evoData.evolves_to[0] != undefined) {
                 evoData.evolves_to.forEach((item, index) => {
-                    evoArray.push(item.species)
+                    evoArray.push({...item.species, isBaby: item.is_baby})
                 })
                 if (evoData.evolves_to[0].evolves_to[0] != undefined) {
-                    evoArray.push(evoData.evolves_to[0].evolves_to[0].species)
+                    evoArray.push({ ...evoData.evolves_to[0].evolves_to[0].species, isBaby: evoData.evolves_to[0].evolves_to[0].is_baby})
                 }
             }
             this.fetchEvoImages(evoArray)
@@ -88,12 +89,19 @@ export default class PokemonDetails extends Component {
         const requestArr = evoArray.map(async (item) => {
             await axios.get(`https://pokeapi.co/api/v2/pokemon/${item.name}`).then((res) => {
                 currentData.push(res.data)
-                detailsEvoChain.push({ ...item, image: res.data.sprites.other["official-artwork"].front_default})
+                detailsEvoChain.push({ ...item, image: res.data.sprites.other["official-artwork"].front_default, isBaby: item.isBaby})
             })
         })
         
         Promise.all(requestArr).then((data) => {
-            this.setState({ currentPokemon: currentData.filter((item) => item.name === location.pathname.split('/')[1])[0], detailsEvoChain: detailsEvoChain.sort((a, b) => a.url > b.url ? 1 : -1 )})
+            this.setState({ currentPokemon: currentData.filter((item) => item.name === location.pathname.split('/')[1])[0], 
+                            detailsEvoChain: detailsEvoChain.sort((a, b) => { 
+                               return a.url > b.url ? 1:-1
+                            }).sort((a,b) => {
+                                if (a.isBaby > b.isBaby ) return -1
+                                if (a.isBaby < b.isBaby) return 1
+                                if (a.isBaby = b.isBaby) return 0
+                            })})
         })
     }
     fetchGenderRate = (genderRate) => {
