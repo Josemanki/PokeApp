@@ -71,7 +71,9 @@ export default class PokemonDetails extends Component {
             let evoArray = [];
             evoArray.push(evoData.species)
             if(evoData.evolves_to[0] != undefined) {
-                evoArray.push(evoData.evolves_to[0].species)
+                evoData.evolves_to.forEach((item, index) => {
+                    evoArray.push(item.species)
+                })
                 if (evoData.evolves_to[0].evolves_to[0] != undefined) {
                     evoArray.push(evoData.evolves_to[0].evolves_to[0].species)
                 }
@@ -121,7 +123,6 @@ export default class PokemonDetails extends Component {
     }
     
     render() {
-        
         let finalColor;
 
         if (this.state.currentPokemon.types.length == 2) {
@@ -193,24 +194,25 @@ export default class PokemonDetails extends Component {
                         <div>
                             <h3 className="details__category__name">Evolutions</h3>
                             <div className="container__description evo__container">
-                            {this.state.detailsEvoChain.map((item, index, elements) => (
-                                <React.Fragment key={item.name}>
-                                    <div>
-                                        <Link className="pokemon__link" key={item.name} to={`/${item.name}`}>
-                                            <div key={item.name} className="evo__token" >
-                                                <div className="details__evo__name">
-                                                    <span className="capitalize">{item.name}</span>
+                            {this.state.detailsEvoChain.map((item, index, elements) => {
+                                return (
+                                    <React.Fragment key={item.name}>
+                                        <div>
+                                            <Link className="pokemon__link" key={item.name} to={`/${item.name}`}>
+                                                <div key={item.name} className="evo__token" >
+                                                    <div className="details__evo__name">
+                                                        <span className="capitalize">{item.name}</span>
+                                                    </div>
+                                                    <div className="details__evo__image__field" style={{ 'background': `linear-gradient(${finalColor[0]}, ${finalColor[1]})` }}>
+                                                        <img src={item.image} className="details__evo__image" />
+                                                    </div>
                                                 </div>
-                                                <div className="details__evo__image__field" style={{ 'background': `linear-gradient(${finalColor[0]}, ${finalColor[1]})` }}>
-                                                    <img src={item.image} className="details__evo__image" />
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                    {elements.length === index + 3 && <div key={item} className={`evo__arrow`}>{elements[index + 1] && '>'}</div>}
-                                    {elements.length === index + 2 && <div key={item} className={`evo__arrow`}>{elements[index + 1] && '>'}</div>}
-                                </React.Fragment>
-                            ))}
+                                            </Link>
+                                        </div>
+                                        {elements.length != index + 1 && <div className="evo__arrow">&gt;</div>}
+                                    </React.Fragment>
+                                )
+                            })}
                             </div>
                         </div>
                     </div>
