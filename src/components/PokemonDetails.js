@@ -70,7 +70,7 @@ export default class PokemonDetails extends Component {
             let evoData = response.data.chain
             let evoArray = [];
             evoArray.push(evoData.species)
-            if(evoData.evolves_to[0].species != undefined) {
+            if(evoData.evolves_to[0] != undefined) {
                 evoArray.push(evoData.evolves_to[0].species)
                 if (evoData.evolves_to[0].evolves_to[0] != undefined) {
                     evoArray.push(evoData.evolves_to[0].evolves_to[0].species)
