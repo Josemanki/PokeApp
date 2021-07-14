@@ -173,7 +173,7 @@ export default class PageHome extends Component {
                             Object.keys(this.state.pokemonData).map((index) => {
                                 return (
                                     <div className="pokemon__card__wrapper" key={this.state.pokemonData[index].name}>
-                                        <Link className="pokemon__link" key={this.state.pokemonData[index].name} to={{ pathname: `/${this.state.pokemonData[index].name}`, pokeurl: { url: this.state.pokemonData[index].species.url } }}>
+                                        <Link className="pokemon__link" key={this.state.pokemonData[index].id} to={{ pathname: `/${this.state.pokemonData[index].id}`, pokeurl: { url: this.state.pokemonData[index].species.url } }}>
                                             
                                                 <Pokemon
                                                     name={this.state.pokemonData[index].name}

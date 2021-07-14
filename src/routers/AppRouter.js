@@ -12,7 +12,7 @@ const AppRouter = () => {
             <Header />
             <Switch>
                 <Route path={'/'} exact={true} component={HomePage} />
-                <Route path={`/:pokemon?`} component={PokemonDetails}>
+                <Route path={`/:id?`} component={PokemonDetails}>
                 </Route>
             </Switch>
             <Footer />

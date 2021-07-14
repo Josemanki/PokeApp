@@ -39,7 +39,8 @@ export default class PokemonDetails extends Component {
             detailsEvoChain: [{
                 name: '',
                 url: '',
-                image: ''
+                image: '',
+                id: ''
             }]
         }
     }
@@ -69,14 +70,15 @@ export default class PokemonDetails extends Component {
         .then((response) => {
             let evoData = response.data.chain
             let evoArray = [];
-            let babyCheck = {...evoData.species, isBaby: evoData.is_baby}
+            let babyCheck = {...evoData.species, isBaby: evoData.is_baby, id: evoData.species.url.split('species/')[1]}
             evoArray.push(babyCheck)
             if(evoData.evolves_to[0] != undefined) {
                 evoData.evolves_to.forEach((item, index) => {
-                    evoArray.push({...item.species, isBaby: item.is_baby})
+                    evoArray.push({ ...item.species, isBaby: item.is_baby, id: item.species.url.split('species/')[1]})
+
                 })
                 if (evoData.evolves_to[0].evolves_to[0] != undefined) {
-                    evoArray.push({ ...evoData.evolves_to[0].evolves_to[0].species, isBaby: evoData.evolves_to[0].evolves_to[0].is_baby})
+                    evoArray.push({ ...evoData.evolves_to[0].evolves_to[0].species, isBaby: evoData.evolves_to[0].evolves_to[0].is_baby, id: evoData.evolves_to[0].evolves_to[0].species.url.split('species/')[1]})
                 }
             }
             this.fetchEvoImages(evoArray)
@@ -85,16 +87,15 @@ export default class PokemonDetails extends Component {
     fetchEvoImages = async (evoArray) => {
         let detailsEvoChain = []
         let currentData = []
-        
         const requestArr = evoArray.map(async (item) => {
-            await axios.get(`https://pokeapi.co/api/v2/pokemon/${item.name}`).then((res) => {
+            await axios.get(`https://pokeapi.co/api/v2/pokemon/${item.id}`).then((res) => {
                 currentData.push(res.data)
-                detailsEvoChain.push({ ...item, image: res.data.sprites.other["official-artwork"].front_default, isBaby: item.isBaby})
+                detailsEvoChain.push({ ...item, image: res.data.sprites.other["official-artwork"].front_default, isBaby: item.isBaby, id: item.id})
             })
         })
         
         Promise.all(requestArr).then((data) => {
-            this.setState({ currentPokemon: currentData.filter((item) => item.name === location.pathname.split('/')[1])[0], 
+            this.setState({ currentPokemon: currentData.filter((item) => item.id == location.pathname.split('/')[1])[0], 
                             detailsEvoChain: detailsEvoChain.sort((a, b) => { 
                                return a.url > b.url ? 1:-1
                             }).sort((a,b) => {
@@ -203,10 +204,11 @@ export default class PokemonDetails extends Component {
                             <h3 className="details__category__name">Evolutions</h3>
                             <div className="container__description evo__container">
                             {this.state.detailsEvoChain.map((item, index, elements) => {
+                                console.log(this.state.detailsEvoChain)
                                 return (
                                     <React.Fragment key={item.name}>
                                         <div>
-                                            <Link className="pokemon__link" key={item.name} to={`/${item.name}`}>
+                                            <Link className="pokemon__link" key={item.name} to={`/${item.id.split('')[0]}`}>
                                                 <div key={item.name} className="evo__token" >
                                                     <div className="details__evo__name">
                                                         <span className="capitalize">{item.name}</span>
