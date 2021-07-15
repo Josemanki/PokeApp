@@ -207,7 +207,7 @@ export default class PokemonDetails extends Component {
                                 return (
                                     <React.Fragment key={item.name}>
                                         <div>
-                                            <Link className="pokemon__link" key={item.name} to={`/${item.id.split('')[0]}`}>
+                                            <Link className="pokemon__link" key={item.name} to={`/${item.id.split('/')[0]}`}>
                                                 <div key={item.name} className="evo__token" >
                                                     <div className="details__evo__name">
                                                         <span className="capitalize">{item.name}</span>
