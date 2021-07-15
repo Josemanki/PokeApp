@@ -204,7 +204,6 @@ export default class PokemonDetails extends Component {
                             <h3 className="details__category__name">Evolutions</h3>
                             <div className="container__description evo__container">
                             {this.state.detailsEvoChain.map((item, index, elements) => {
-                                console.log(this.state.detailsEvoChain)
                                 return (
                                     <React.Fragment key={item.name}>
                                         <div>
