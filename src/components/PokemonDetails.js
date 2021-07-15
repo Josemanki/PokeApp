@@ -78,7 +78,9 @@ export default class PokemonDetails extends Component {
 
                 })
                 if (evoData.evolves_to[0].evolves_to[0] != undefined) {
-                    evoArray.push({ ...evoData.evolves_to[0].evolves_to[0].species, isBaby: evoData.evolves_to[0].evolves_to[0].is_baby, id: evoData.evolves_to[0].evolves_to[0].species.url.split('species/')[1]})
+                    evoData.evolves_to[0].evolves_to.forEach((item, index) => {
+                        evoArray.push({ ...item.species, isBaby: item.is_baby, id: item.species.url.split('species/')[1] })
+                    })
                 }
             }
             this.fetchEvoImages(evoArray)
@@ -97,7 +99,7 @@ export default class PokemonDetails extends Component {
         Promise.all(requestArr).then((data) => {
             this.setState({ currentPokemon: currentData.filter((item) => item.id == location.pathname.split('/')[1])[0], 
                             detailsEvoChain: detailsEvoChain.sort((a, b) => { 
-                               return a.url > b.url ? 1:-1
+                            return Number(a.id.split('/')[0]) > Number(b.id.split('/')[0]) ? 1:-1
                             }).sort((a,b) => {
                                 if (a.isBaby > b.isBaby ) return -1
                                 if (a.isBaby < b.isBaby) return 1
