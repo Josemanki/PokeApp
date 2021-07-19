@@ -174,7 +174,7 @@ export default class PageHome extends Component {
                 return (
                   <div className="pokemon__card__wrapper" key={this.state.pokemonData[index].name}>
                     <Link className="pokemon__link" key={this.state.pokemonData[index].id} to={{ pathname: `/${this.state.pokemonData[index].id}`, pokeurl: { url: this.state.pokemonData[index].species.url } }}>
-                      
+                      {console.log('hi')}
                         <Pokemon
                           name={this.state.pokemonData[index].name}
                           key={this.state.pokemonData[index].name}
