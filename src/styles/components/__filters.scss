@@ -1,37 +1,37 @@
 .filters-tab {
-    display: flex;
-    justify-content: center;
-    margin: 4rem;
+  display: flex;
+  justify-content: center;
+  margin: 4rem;
 }
 
 .filter__input {
-    font-size: 1.5rem;
-    height: 4rem;
-    padding: 1rem;
-    font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  height: 4rem;
+  padding: 1rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 .filter__input > option {
-    font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .filter__option {
-    font-size: 1.3rem;
-    text-transform: uppercase;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
 }
 
-@media only screen and (max-width:91rem) {
-    .filters-tab {
-        flex-direction: column-reverse;
-        margin: 2rem;
-    }
+@media only screen and (max-width: 910px) {
+  .filters-tab {
+    flex-direction: column-reverse;
+    margin: 2rem;
+  }
 
-    .filter__input {
-        min-width: 20rem;
-    }
+  .filter__input {
+    min-width: 20rem;
+  }
 }

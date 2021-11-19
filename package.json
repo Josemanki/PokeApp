@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config-prod.js",
     "watch": "babel src/app.js --out-file=public/scripts/app.js --presets=@babel/preset-react,@babel/preset-env --watch",
     "dev-server": "webpack serve --mode development"
